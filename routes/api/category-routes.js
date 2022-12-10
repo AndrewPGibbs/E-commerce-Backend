@@ -13,17 +13,31 @@ router.get('/', async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-  // find all categories
-  // be sure to include its associated Products
-});
 
-router.get('/:id', (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
 });
-
-router.post('/', (req, res) => {
-  // create a new category
+// find category by ID
+router.get('/:id', async (req, res) => {
+try {
+  const categoryRes = await Category.findByPk(req.params.id, {
+    include: [{model: Product }]
+  });
+  
+} catch (err) {
+  res.status(500).json(err);
+}
+});
+//update a category
+router.post('/', async (req, res) => {
+  try {
+    const categoryRes = await Category.update(
+      req.body,
+      {where: {id: req.params.id }}
+    );
+    res.status(200).json('Category updated'
+    );
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 router.put('/:id', (req, res) => {
