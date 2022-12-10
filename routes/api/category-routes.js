@@ -60,7 +60,7 @@ router.put('/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+//delete category
 router.delete('/:id', async (req, res) => {
   try {
     const categoryRes = await Category.destroy({ where: { id: req.params.id}});
